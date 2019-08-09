@@ -180,6 +180,14 @@ ITC_PriorityLevel_TypeDef ITC_GetSoftwarePriority(ITC_Irq_TypeDef IrqNum);
   * @}
   */
 
+#if defined(_IAR_)
+#define VECTOR(_vector) _vector + 2
+#define ISR(_name, _vector) __interrupt void _name(void)
+#elif defined(_SDCC_)
+#define VECTOR(_vector) _vector
+#define ISR(_name, _vector) void _name(void) __interrupt(_vector)
+#endif
+
 #endif /* __STM8S_ITC_H */
 
 

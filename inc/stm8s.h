@@ -145,7 +145,14 @@
 #elif defined (_SDCC_)
  #define FAR  __far
  #define NEAR __near
+ #define TINY
  #define CONST  const
+ #define u8 uint8_t
+ #define u16 uint16_t
+ #define u32 uint32_t
+ #define s8 int8_t
+ #define s16 int16_t
+ #define s32 int32_t
 #elif defined (_IAR_)
  #define FAR  __far
  #define NEAR __near
@@ -2750,6 +2757,10 @@ CFG_TypeDef;
  _Pragma( VECTOR_ID( 1 ) ) \
  __interrupt void (a) (void)  
 #endif /* _IAR_ */
+
+#ifdef _SDCC_
+ #define INTERRUPT_HANDLER(a, b) void a(void) __interrupt(b)
+#endif
 
 /*============================== Interrupt Handler declaration ========================*/
 #ifdef _COSMIC_
